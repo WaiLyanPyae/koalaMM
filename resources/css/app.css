@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: Comfortaa;
+    src: url("/resources/fonts/Comfortaa\ Regular.ttf");
+}
+
+.btn {
+    @apply shadow-md py-3 px-6 rounded-md transition duration-300;
+}
+
+.btn-blue {
+    @apply bg-Accent text-Background;
+}
+
+.btn-primary {
+    @apply bg-Background text-Accent;
+}
+
+.glassmorphism-container {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blurred background */
+    border-radius: 10px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Slight border for depth */
+}
+
+.slideshow .slick-track {
+    transition: all 1s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.slideshow .item img {
+    width: 100%;
+    transition: all 1s cubic-bezier(0.7, 0, 0.3, 1);
+    transform: scale(1.2);
+}
+
+.slideshow .slick-active img {
+    transform: scale(1);
+}
+
+.slick-slider-host img {
+    width: 100%;
+    height: 500px; 
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.slick-slider-container {
+    position: relative;
+    overflow: hidden; 
+}
+
+.slick-custom-prev, .slick-custom-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    color: #333; /* Darker font color for better contrast */
+    border: 2px solid #ddd; /* Light border */
+    font-size: 20px; /* Larger icon size */
+    padding: 10px; /* Larger padding for bigger touch targets */
+    cursor: pointer;
+    z-index: 1;
+    border-radius: 50%; /* Circular buttons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.slick-custom-prev {
+    left: 20px;
+}
+
+.slick-custom-next {
+    right: 20px;
+}
+
+.slick-custom-prev:hover, .slick-custom-next:hover {
+    color: #007bff; /* Brighter hover color */
+    background: #f8f9fa; /* Slightly darker background on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+}
+
+/* Optional: Hide arrows on small screens */
+@media (max-width: 600px) {
+    .slick-custom-prev, .slick-custom-next {
+        display: none;
+    }
+}
+
+.listing-slider img {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.listing-slider-container {
+    position: relative;
+    overflow: hidden; 
+}
+
+.slider-detail img {
+    width: 100%;
+    height: 600px; 
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.listing-slider-container {
+    position: relative;
+    overflow: hidden; 
+}
+.fa-bars:before, .fa-navicon:before , #close-icon{
+    color:white;
+}
+
+#main-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50; /* Adjust z-index as needed */
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.nav-scrolled {
+    background: rgba(228, 216, 221, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
