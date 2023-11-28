@@ -51,10 +51,16 @@
                                 {{ \Carbon\Carbon::parse($listing->available_to)->format('M d, Y') }}
                             </li>
                         @endif
-                        {{-- Display the owner's name --}}
                         <li>
                             <i class="fas fa-user mr-2"></i>
-                            <strong>Owner:</strong> {{ $listing->user->name }}
+                            <strong>Host:</strong> {{ $listing->user->name }}
+                        </li>
+                        <li>
+                            {{-- <i class="fas fa-envelope mr-2"></i>
+                            <strong>Email:</strong> {{ $listing->user->email }} --}}
+                            <a href="mailto:{{ $listing->user->email }}" class="mr-2 text-Background hover:text-blue-700">
+                                <i class="fas fa-paper-plane"></i> Contact
+                            </a>
                         </li>
                     </ul>
                 </div>

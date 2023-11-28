@@ -10,8 +10,9 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\HostAuthController;
-use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminHostController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\HostDashboardController;
 
 /*
@@ -98,6 +99,12 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
         'edit' => 'admin.hosts.edit',
         'update' => 'admin.hosts.update',
         'destroy' => 'admin.hosts.destroy',
+    ]);
+    Route::resource('/bookings', AdminBookingController::class)->names([
+        'index' => 'admin.bookings.index',
+        'edit' => 'admin.bookings.edit',
+        'update' => 'admin.bookings.update',
+        'destroy' => 'admin.bookings.destroy',
     ]);
 });
 

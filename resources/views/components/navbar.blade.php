@@ -7,6 +7,7 @@
         <li class="cursor-pointer text-Primary"><a href="{{ route('landing') }}">Home</a></li>
         <li class="cursor-pointer text-Primary"><a href="{{ route('about') }}">About Us</a></li>
         <li class="cursor-pointer text-Primary"><a href="{{ route('listings.index') }}">Listings</a></li>
+        <li class="cursor-pointer text-Primary"><a href="{{ route('contact') }}">Contact Us</a></li>
         @auth
             <li class="cursor-pointer text-Primary"><a href="{{ route('dashboard') }}">{{ Auth::user()->name }}</a></li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

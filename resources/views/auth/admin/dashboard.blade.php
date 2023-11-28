@@ -36,6 +36,16 @@
                             </a>
                         </dd>
                     </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500 flex items-center">
+                            <i class="fas fa-book mr-2 text-lg text-Background"></i>Bookings
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <a href="{{ route('admin.bookings.index') }}" class="text-Background hover:text-blue-900 flex items-center">
+                                <i class="fas fa-calendar-alt mr-2"></i>Manage Bookings
+                            </a>
+                        </dd>
+                    </div>
                 </dl>
             </div>
         </div>
