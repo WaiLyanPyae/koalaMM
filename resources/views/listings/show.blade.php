@@ -62,6 +62,10 @@
                                 <i class="fas fa-paper-plane"></i> Contact
                             </a>
                         </li>
+                        <li>
+                            <i class="fas fa-clock mr-2"></i>
+                            <strong>Term Type:</strong> {{ Str::title(str_replace('_', ' ', $listing->term_type)) }}
+                        </li>                        
                     </ul>
                 </div>
             </div>
@@ -81,7 +85,12 @@
             @if ($listing->house_rules)
                 <div class="mt-6">
                     <h3 class="text-xl font-semibold text-Background mb-3">House Rules</h3>
-                    <p class="text-Background">{{ $listing->house_rules }}</p>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach (explode(',', $listing->house_rules) as $house_rule)
+                            <span
+                                class="bg-Background text-Primary px-3 py-1 rounded-full text-sm">{{ $house_rule }}</span>
+                        @endforeach
+                    </div>
                 </div>
             @endif
         </div>
@@ -111,43 +120,58 @@
                 </div>
 
                 {{-- Book Now Button --}}
-                <div class="text-center">
+                <div class="text-center mb-4">
                     <button type="submit"
-                        class="bg-Background text-white text-lg font-bold py-3 px-6 rounded-full focus:outline-none shadow-md transition duration-300 hover:bg-gradient-to-r from-Background to-Background hover:scale-105">Book
-                        Now</button>
+                        class="bg-Background text-white text-lg font-bold py-3 px-6 rounded-full focus:outline-none shadow-md transition duration-300 hover:bg-gradient-to-r from-Background to-Background hover:scale-105">
+                        Book Now
+                    </button>
+                </div>
+
+                {{-- Cancellation Policy Link --}}
+                <div class="text-center">
+                    <a href="{{ route('cancellation-policy') }}" class="text-blue-500 hover:text-blue-700">
+                        View Cancellation Policy
+                    </a>
                 </div>
             </form>
         </div>
+
         {{-- Review Section --}}
         <div class="mt-8">
             <h2 class="text-2xl font-semibold text-Primary mb-4">Reviews</h2>
-
+        
             {{-- Review Submission Form --}}
             @if (auth()->check())
-                <div class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-6">
+                <div class="bg-white shadow-md rounded-lg p-6 mb-6">
                     <form action="{{ route('reviews.store', $listing->id) }}" method="POST">
                         @csrf
-                        <textarea name="review" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-Primary"
-                            placeholder="Write a review" required></textarea>
-                        <div class="text-center">
+                        <textarea name="review" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-Primary"
+                                  placeholder="Write a review" required></textarea>
+                        <div class="text-center mt-4">
                             <button type="submit"
-                                class="bg-Background text-white text-lg font-bold py-3 px-6 rounded-full focus:outline-none shadow-md transition duration-300 hover:bg-gradient-to-r from-Background to-Background hover:scale-105">
+                                    class="bg-Background text-white text-lg font-bold py-2 px-6 rounded-lg focus:outline-none shadow transition duration-300 hover:bg-gradient-to-r from-Background to-Background hover:scale-105">
                                 Submit Review
                             </button>
                         </div>
                     </form>
                 </div>
             @endif
-
+        
             {{-- Displaying Reviews --}}
             @forelse ($listing->reviews as $review)
-                <div class="bg-white shadow-lg rounded-lg p-4 mb-4">
-                    <strong class="font-bold">{{ $review->user->name }}</strong>
-                    <p>{{ $review->review }}</p>
+                <div class="bg-white shadow-md rounded-lg p-6 mb-4 flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-user-circle text-Background text-5xl"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-lg text-Background mb-2">{{ $review->user->name }}</h3>
+                        <p class="text-gray-600">{{ $review->review }}</p>
+                    </div>
                 </div>
             @empty
                 <p class="text-Primary">No reviews yet.</p>
             @endforelse
         </div>
+
     </div>
 @endsection

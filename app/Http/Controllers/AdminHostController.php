@@ -11,20 +11,28 @@ class AdminHostController extends Controller
     public function index()
     {
         // Define the fee per listing
-        $feePerListing = 50; // Set your desired fee per listing here
-    
+        $feePerListing = 50;
+
         // Retrieve hosts and their associated listings
         $hosts = User::where('role', 'host')->with('listings')->paginate(10);
-    
+
         // Calculate the subscription fee and count of listings for each host
         foreach ($hosts as $host) {
             $host->subscription_fee = $host->listings->count() * $feePerListing;
             $host->listings_count = $host->listings->count();
         }
-    
+
         return view('auth.admin.hosts.index', compact('hosts', 'feePerListing'));
-    }     
-    
+    }
+
+    public function showListings($id)
+    {
+        $host = User::findOrFail($id);
+        $listings = $host->listings;
+
+        return view('auth.admin.hosts.show_listings', compact('host', 'listings'));
+    }
+
     public function create()
     {
         return view('auth.admin.hosts.create');
@@ -37,17 +45,17 @@ class AdminHostController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    
+
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'role' => 'host', // Assign the host role directly
         ]);
-    
+
         return redirect()->route('admin.hosts.index')->with('success', 'Host created successfully.');
     }
-    
+
 
     public function edit($id)
     {

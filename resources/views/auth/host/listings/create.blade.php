@@ -136,6 +136,17 @@
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
+            
+            <div class="mb-4">
+                <label for="term_type" class="block text-gray-700 text-sm font-bold mb-2">Term Type:</label>
+                <select id="term_type" name="term_type" class="w-full p-2 border rounded">
+                    <option value="short_term" {{ old('term_type') == 'short_term' ? 'selected' : '' }}>Short Term</option>
+                    <option value="long_term" {{ old('term_type') == 'long_term' ? 'selected' : '' }}>Long Term</option>
+                </select>
+                @error('term_type')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
 
             <div class="mb-4">
                 <label for="images" class="block text-gray-700 text-sm font-bold mb-2">Images:</label>

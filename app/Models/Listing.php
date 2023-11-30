@@ -24,6 +24,7 @@ class Listing extends Model
         'amenities',
         'max_guests',
         'house_rules',
+        'term_type',
         'images'
     ];
 

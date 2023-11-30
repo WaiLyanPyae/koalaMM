@@ -68,21 +68,22 @@
 
             <div class="mb-4">
                 <label for="available_from" class="block text-sm font-bold mb-2 text-Primary">Available From:</label>
-                <input type="date" id="available_from" name="available_from" value="{{ $listing->available_from }}"
-                    class="w-full p-2 border rounded" required>
+                <input type="date" id="available_from" name="available_from" value="{{ $listing->available_from->format('Y-m-d') }}"
+                       class="w-full p-2 border rounded" required>
                 @error('available_from')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
-
+            
             <div class="mb-4">
                 <label for="available_to" class="block text-sm font-bold mb-2 text-Primary">Available To:</label>
-                <input type="date" id="available_to" name="available_to" value="{{ $listing->available_to }}"
-                    class="w-full p-2 border rounded">
+                <input type="date" id="available_to" name="available_to" value="{{ $listing->available_to ? $listing->available_to->format('Y-m-d') : '' }}"
+                       class="w-full p-2 border rounded">
                 @error('available_to')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
+            
             <!-- Property Type -->
             <div class="mb-4">
                 <label for="property_type" class="block text-sm font-bold mb-2 text-Primary">Property Type:</label>
@@ -141,6 +142,20 @@
                 @enderror
             </div>
 
+            <!-- Term Type (Long term / Short term) -->
+            <div class="mb-4">
+                <label for="term_type" class="block text-sm font-bold mb-2 text-Primary">Term Type:</label>
+                <select id="term_type" name="term_type" class="w-full p-2 border border-gray-300 rounded-md">
+                    <option value="short_term" {{ $listing->term_type == 'short_term' ? 'selected' : '' }}>Short Term
+                    </option>
+                    <option value="long_term" {{ $listing->term_type == 'long_term' ? 'selected' : '' }}>Long Term
+                    </option>
+                </select>
+                @error('term_type')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            
             {{-- Display Current Images with Removal Option --}}
             <div class="mb-4">
                 <label class="block text-sm font-bold mb-2 text-Primary">Current Images:</label>

@@ -41,6 +41,10 @@ Route::get('/contact', function () {
 })->name('contact');
 Route::post('/contact/submit', 'ContactController@submit')->name('contact.submit');
 
+Route::get('/cancellation-policy', function () {
+    return view('cancellation-policy');
+})->name('cancellation-policy');
+
 // Listings
 Route::get('/listings', [ListingController::class, 'index'])->name('listings.index');
 Route::get('/listings/{id}', [ListingController::class, 'show'])->name('listings.show');
@@ -48,7 +52,7 @@ Route::get('/listings/{id}', [ListingController::class, 'show'])->name('listings
 // Route::get('/listings/search', [ListingController::class, 'search'])->name('listings.search');
 
 // User Auth
-Route::get('/login', [AuthController::class,'login'])->name('login');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin']);
 
 Route::get('/signup', [AuthController::class, 'signup'])->name('signup');
@@ -77,10 +81,9 @@ Route::middleware(['auth', 'isHost'])->prefix('host')->group(function () {
     Route::delete('/listings/{id}', [HostDashboardController::class, 'destroy'])->name('host.listings.destroy');
 });
 
-
 // Admin Only
-Route::get('admin/login', [AdminController::class,'showLoginForm'])->name('admin.login');
-Route::post('admin/login', [AdminController::class,'login']);
+Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('admin/login', [AdminController::class, 'login']);
 
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -100,6 +103,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
         'update' => 'admin.hosts.update',
         'destroy' => 'admin.hosts.destroy',
     ]);
+    Route::get('/hosts/{id}/listings', [AdminHostController::class, 'showListings'])->name('admin.hosts.listings');
+    
     Route::resource('/bookings', AdminBookingController::class)->names([
         'index' => 'admin.bookings.index',
         'edit' => 'admin.bookings.edit',
@@ -108,8 +113,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     ]);
 });
 
-Route::get('/my-bookings',[BookingController::class,'index'])->name('bookings.index');
-Route::post('/bookings',[BookingController::class,'store'])->name('bookings.store');
+Route::get('/my-bookings', [BookingController::class, 'index'])->name('bookings.index');
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 Route::get('/bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
 Route::put('/bookings/{booking}', [BookingController::class, 'update'])->name('bookings.update');
 Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
@@ -129,6 +134,6 @@ Route::get('/listings/{listing}/reviews', [ReviewController::class, 'index'])->n
 //     abort(404);
 // });
 
-Route::fallback(function() {
+Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
